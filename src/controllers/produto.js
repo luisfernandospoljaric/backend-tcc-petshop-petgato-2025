@@ -6,9 +6,9 @@ const create = async (req, res) => {
         const { nome, descricao, preco, imagem, categoria } = req.body;
         // Verificar se a categoria enviada é válida
         const categoriasValidas = ['cachorro', 'gato', 'outros', 'farmacia'];
-        if (!categoriasValidas.includes(categoria)) {
-            return res.status(400).json({ error: 'Categoria inválida.' });
-        }
+        //if (!categoriasValidas.includes(categoria)) {
+          //  return res.status(400).json({ error: 'Categoria inválida.' });
+        //}
 
         const produto = await prisma.produto.create({
             data: {
@@ -16,13 +16,14 @@ const create = async (req, res) => {
                 descricao,
                 preco,
                 imagem,
-                categoria, // Passando apenas uma categoria (valor do enum)
+                categoria,
             },
         });
 
         res.status(201).json(produto);
     } catch (error) {
-        res.status(500).json({ error: 'Erro ao criar produto' });
+    console.error(error);  
+    res.status(500).json({ mensage: 'Erro ao criar produto' });
     }
 };
 
